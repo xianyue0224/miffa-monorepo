@@ -1,6 +1,6 @@
 {
   "name": "@miffa/core",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "miffa cli core code",
   "author": "xianyue <xianyue0224@gmail.com>",
   "homepage": "",
@@ -13,9 +13,6 @@
   "files": [
     "lib"
   ],
-  "publishConfig": {
-    "registry": "https://registry.npmmirror.com/"
-  },
   "scripts": {
     "test": "node ./__tests__/core.test.js"
   }
