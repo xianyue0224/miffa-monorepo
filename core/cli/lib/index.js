@@ -1,17 +1,24 @@
 'use strict';
 
+let argv, userHome
+
+// 外部模块
 const semver = require("semver")
 const colors = require("colors/safe")
 const pathExists = require("path-exists").sync
-const { homedir } = require("node:os")
-const process = require("node:process")
+
+// 内部模块
 const pkg = require("../package.json")
 const log = require("@miffa/log")
 const constant = require("./const")
 
-module.exports = core;
+// Node.js内置模块
+const { homedir } = require("node:os")
+const process = require("node:process")
+const path = require("node:path")
 
-let argv
+
+const env = process.env
 
 function core() {
     try {
@@ -19,9 +26,35 @@ function core() {
         checkNodeVersion()
         checkUserHome()
         checkInputArgs()
+        checkEnv()
+        checkCliUpdate()
     } catch (e) {
         log.error(e.message)
     }
+}
+
+// 检查脚手架更新
+function checkCliUpdate() {
+
+}
+
+// 检查环境变量
+function checkEnv() {
+    const dotenv = require("dotenv")
+
+    // dotenv默认路径
+    const dotenvPath = path.resolve(userHome, ".env")
+
+    if (pathExists(dotenvPath)) {
+        dotenv.config({
+            path: dotenvPath
+        })
+    }
+
+    // 将脚手架缓存路径添加到环境变量中
+    env.CLI_HOME_PATH = path.join(env.USER_HOME_PATH, env.CLI_HOME ? env.CLI_HOME : constant.DEFAULT_CLI_HOME)
+
+    log.verbose("环境变量", env)
 }
 
 // 检查入参
@@ -38,9 +71,11 @@ function checkDebug() {
 
 // 检查当前登录用户的主目录是否存在
 function checkUserHome() {
-    const userHome = homedir()
+    userHome = homedir()
     if (!userHome || !pathExists(userHome)) {
         throw new Error(colors.red("当前登录用户主目录不存在！"))
+    } else {
+        env.USER_HOME_PATH = userHome
     }
 }
 
@@ -67,3 +102,5 @@ function checkPkgVersion() {
 //     const rootCheck = await import("root-check")
 //     rootCheck()
 // }
+
+module.exports = core;

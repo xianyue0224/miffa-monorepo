@@ -31,10 +31,11 @@
   "dependencies": {
     "@miffa/log": "file:../../../../utils/log",
     "colors": "^1.4.0",
+    "dotenv": "^16.0.3",
     "import-local": "^3.1.0",
     "minimist": "^1.2.7",
     "path-exists": "4.0.0",
     "semver": "^7.3.8"
   },
-  "gitHead": "68bf9094a200296fec80f0f3f9feda30738a3af3"
+  "gitHead": "4e32953cb27c480fd876bf21e797c0485d872057"
 }
