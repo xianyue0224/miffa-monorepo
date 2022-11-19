@@ -11,17 +11,32 @@ const constant = require("./const")
 
 module.exports = core;
 
+let argv
+
 function core() {
     try {
         checkPkgVersion()
         checkNodeVersion()
         checkUserHome()
+        checkInputArgs()
     } catch (e) {
         log.error(e.message)
     }
-
 }
 
+// 检查入参
+function checkInputArgs() {
+    argv = require('minimist')(process.argv.slice(2))
+    checkDebug()
+}
+
+// 检查是否为debug模式
+function checkDebug() {
+    process.env.LOG_LEVEL = argv.debug ? "verbose" : "info"
+    log.level = process.env.LOG_LEVEL
+}
+
+// 检查当前登录用户的主目录是否存在
 function checkUserHome() {
     const userHome = homedir()
     if (!userHome || !pathExists(userHome)) {
@@ -29,6 +44,7 @@ function checkUserHome() {
     }
 }
 
+// 检查当前Node版本
 function checkNodeVersion() {
     // 获取当前版本号
     const cur = process.version
@@ -41,6 +57,7 @@ function checkNodeVersion() {
     }
 }
 
+// 检查当前脚手架版本
 function checkPkgVersion() {
     log.notice("", `脚手架当前版本为 v${pkg.version}`)
 }
