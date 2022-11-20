@@ -1,6 +1,6 @@
 {
   "name": "@miffa/cli",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "miffa cli core",
   "author": "xianyue <xianyue0224@gmail.com>",
   "homepage": "",
@@ -29,8 +29,8 @@
     "test": "node ./__tests__/cli.test.js"
   },
   "dependencies": {
-    "@miffa/log": "file:../../../../utils/log",
     "@miffa/get-npm-info": "file:../../../../utils/get-npm-info",
+    "@miffa/log": "file:../../../../utils/log",
     "colors": "^1.4.0",
     "dotenv": "^16.0.3",
     "import-local": "^3.1.0",
