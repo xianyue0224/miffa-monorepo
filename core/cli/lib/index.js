@@ -11,6 +11,7 @@ const pathExists = require("path-exists").sync
 const pkg = require("../package.json")
 const log = require("@miffa/log")
 const constant = require("./const")
+const { getLatestVersion } = require("@miffa/get-npm-info")
 
 // Node.js内置模块
 const { homedir } = require("node:os")
@@ -20,22 +21,25 @@ const path = require("node:path")
 
 const env = process.env
 
-function core() {
+async function core() {
     try {
         checkPkgVersion()
         checkNodeVersion()
         checkUserHome()
         checkInputArgs()
         checkEnv()
-        checkCliUpdate()
+        await checkCliUpdate()
     } catch (e) {
         log.error(e.message)
     }
 }
 
 // 检查脚手架更新
-function checkCliUpdate() {
-
+async function checkCliUpdate() {
+    const latestVersion = await getLatestVersion(pkg.name)
+    if (latestVersion && semver.gt(latestVersion, pkg.version)) {
+        log.warn("更新提醒", colors.yellow(`当前版本 v${pkg.version} 不是最新版本，请手动更新到最新版本 v${latestVersion}\n更新指令： npm install @miffa/cli -g`))
+    }
 }
 
 // 检查环境变量
