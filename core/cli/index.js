@@ -53,7 +53,7 @@ function initCommander() {
         .command("init [projectName]")
         .option("-f, --force", "是否强制初始化项目", false)
         .description("初始化项目")
-        .action(require("@miffa/init"))
+        .action(require("@miffa/exec"))
 
 
     // 当输入未知命令时的处理函数
@@ -100,6 +100,9 @@ function checkEnv() {
     require("dotenv").config({
         path: envPath
     })
+
+    // 将缓存路径转换为绝对路径
+    env.CLI_CACHE_PATH = path.join(userHome, env.CLI_CACHE_PATH)
 }
 
 // 检查当前登录用户的主目录是否存在

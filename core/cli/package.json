@@ -24,8 +24,8 @@
   },
   "scripts": {},
   "dependencies": {
-    "@miffa/log": "*",
     "@miffa/init": "*",
+    "@miffa/log": "*",
     "commander": "^9.4.1",
     "dotenv": "^16.0.3",
     "fs-extra": "^10.1.0",
