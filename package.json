@@ -1,16 +1,21 @@
 {
-  "name": "miffa",
+  "name": "miffa-monorepo",
   "version": "1.0.0",
   "description": "项目脚手架",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "version": "changeset version",
+    "publish": "changeset publish"
   },
   "keywords": [],
-  "author": "",
+  "author": {
+    "name": "xianyue",
+    "email": "xianyue0224@gmail.com"
+  },
   "license": "ISC",
   "devDependencies": {
-    "lerna": "^6.0.3"
+    "@changesets/cli": "^2.25.2",
+    "turbo": "^1.6.3"
   },
   "workspaces": [
     "core/*",

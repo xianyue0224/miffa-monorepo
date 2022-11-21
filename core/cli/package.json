@@ -1,21 +1,18 @@
 {
-  "name": "@miffa/cli",
-  "version": "1.0.4",
+  "name": "miffa",
+  "version": "1.0.1",
   "description": "miffa cli core",
-  "author": "xianyue <xianyue0224@gmail.com>",
-  "homepage": "",
-  "license": "ISC",
-  "main": "lib/cli.js",
-  "bin": {
-    "miffa": "bin/index.js"
+  "author": {
+    "name": "xianyue",
+    "email": "xianyue0224@gmail.com"
   },
-  "directories": {
-    "lib": "lib",
-    "test": "__tests__"
+  "license": "ISC",
+  "bin": {
+    "miffa": "index.js"
   },
   "files": [
-    "lib",
-    "bin"
+    "index.js",
+    ".miffaEnv"
   ],
   "publishConfig": {
     "access": "public",
@@ -25,18 +22,13 @@
     "type": "git",
     "url": "https://gitee.com/xianyue0224/miffa.git"
   },
-  "scripts": {
-    "test": "node ./__tests__/cli.test.js"
-  },
+  "scripts": {},
   "dependencies": {
-    "@miffa/get-npm-info": "file:../../../../utils/get-npm-info",
-    "@miffa/log": "file:../../../../utils/log",
-    "colors": "^1.4.0",
+    "@miffa/log": "*",
     "dotenv": "^16.0.3",
-    "import-local": "^3.1.0",
-    "minimist": "^1.2.7",
+    "fs-extra": "^10.1.0",
+    "latest-version": "^5.1.0",
     "path-exists": "4.0.0",
     "semver": "^7.3.8"
-  },
-  "gitHead": "4e32953cb27c480fd876bf21e797c0485d872057"
+  }
 }
