@@ -23,17 +23,6 @@ const argv = process.argv
 
 // 新建脚手架实例
 const program = new Command()
-program
-    .name("Miffa")
-    .usage("<command> [options]")
-    .description("欢迎使用 Miffa 🚀🚀~")
-    .version(chalk.cyan.bold(`当前版本为 v${pkg.version}`), "-v, --version", "查看当前版本")
-    .option("-d, --debug", "是否开启调试模式", false)
-
-program.parse(argv)
-
-// 脚手架选项
-const options = program.opts()
 
 // 脚手架初始化流程
 async function core() {
@@ -44,19 +33,50 @@ async function core() {
         checkEnv()
         checkNodeVersion()
         await checkCliUpdate()
-        initCli()
+        initCommander()
     } catch (e) {
         error(e.message)
     }
 }
 
 // 脚手架初始化
-function initCli() {
-    // 检查是否开启了debug模式
-    env.DEBUG = options.debug
-    if (options.debug) {
-        debug("调试模式已开启！")
-    }
+function initCommander() {
+    program
+        .name("Miffa")
+        .usage("<command> [options]")
+        .description("欢迎使用 Miffa 🚀🚀~")
+        .version(chalk.cyan.bold(`当前版本为 v${pkg.version}`), "-v, --version", "查看当前版本")
+        .option("-d, --debug", "是否开启调试模式", false)
+        .option("-tp, --targetPath <targetPath>", "是否使用本地调试文件", "")
+
+    program
+        .command("init [projectName]")
+        .option("-f, --force", "是否强制初始化项目", false)
+        .description("初始化项目")
+        .action(require("@miffa/init"))
+
+
+    // 当输入未知命令时的处理函数
+    program.on("command:*", function (command) {
+        error(`未知命令 ${command}`)
+        const availableCommands = this.commands.map(command => command._name)
+        info(`可用命令：${availableCommands.join("，")}，help`)
+    })
+
+    // 控制debug模式
+    program.on("option:debug", function () {
+        if (this.opts().debug) {
+            env.CLI_DEBUG = this.opts().debug
+            debug("调试模式已开启！")
+        }
+    })
+
+    // 如果使用本地调试文件，则将文件的路径添加到环境变量中
+    program.on("option:targetPath", function () {
+        env.CLI_TARGET_PATH = this.opts().targetPath
+    })
+
+    program.parse(argv)
 }
 
 // 检查脚手架更新

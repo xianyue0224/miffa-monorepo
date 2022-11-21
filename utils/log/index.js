@@ -1,7 +1,7 @@
 const chalk = require("chalk")
 const process = require("node:process")
 
-const prefix = "Miffa✨"
+const prefix = "Miffa🚀"
 const log = console.log
 
 const error = str => {
@@ -19,7 +19,7 @@ const warn = str => {
 }
 
 const debug = str => {
-    if (process.env.DEBUG === "true") {
+    if (process.env.CLI_DEBUG === "true") {
         log(prefix, chalk.magentaBright.bold("Debug🛠️"), chalk.whiteBright(str))
     }
 }
