@@ -25,6 +25,7 @@
   "scripts": {},
   "dependencies": {
     "@miffa/log": "*",
+    "commander": "^9.4.1",
     "dotenv": "^16.0.3",
     "fs-extra": "^10.1.0",
     "latest-version": "^5.1.0",

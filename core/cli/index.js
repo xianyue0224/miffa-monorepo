@@ -4,29 +4,58 @@
 const semver = require("semver")
 const pathExists = require("path-exists").sync
 const fs = require("fs-extra")
+const { Command } = require("commander")
 
 // 内部模块
 const pkg = require("./package.json")
-const { warn, error, info, notice } = require("@miffa/log")
+const { warn, error, info, notice, debug, chalk } = require("@miffa/log")
 
 // Node.js内置模块
 const process = require("node:process")
 const path = require("node:path")
 
-
+// 用户主目录
 const userHome = require("node:os").homedir()
+// 环境变量
 const env = process.env
+// 命令行参数
+const argv = process.argv
+
+// 新建脚手架实例
+const program = new Command()
+program
+    .name("Miffa")
+    .usage("<command> [options]")
+    .description("欢迎使用 Miffa 🚀🚀~")
+    .version(chalk.cyan.bold(`当前版本为 v${pkg.version}`), "-v, --version", "查看当前版本")
+    .option("-d, --debug", "是否开启调试模式", false)
+
+program.parse(argv)
+
+// 脚手架选项
+const options = program.opts()
 
 // 脚手架初始化流程
 async function core() {
     notice(`v ${pkg.version}`)
+
     try {
         checkUserHome()
         checkEnv()
         checkNodeVersion()
         await checkCliUpdate()
+        initCli()
     } catch (e) {
         error(e.message)
+    }
+}
+
+// 脚手架初始化
+function initCli() {
+    // 检查是否开启了debug模式
+    env.DEBUG = options.debug
+    if (options.debug) {
+        debug("调试模式已开启！")
     }
 }
 
