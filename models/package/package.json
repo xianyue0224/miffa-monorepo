@@ -22,5 +22,9 @@
     "repository": {
         "type": "git",
         "url": "https://github.com/xianyue0224/miffa-monorepo"
+    },
+    "dependencies": {
+        "fs-extra": "^10.1.0",
+        "pkg-dir": "^5.0.0"
     }
 }

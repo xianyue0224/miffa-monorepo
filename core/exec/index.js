@@ -4,15 +4,30 @@ const Package = require("@miffa/package")
 
 const env = process.env
 
+const SETTINGS = {
+    init: "@miffa/init"
+}
+
 function exec() {
-    debug(env.CLI_TARGET_PATH)
-    debug(env.CLI_CACHE_PATH)
+
+    const targetPath = env.CLI_TARGET_PATH
+    const cachePath = env.CLI_CACHE_PATH
+    debug(`targetPath:${targetPath}`)
+    debug(`cachePath:${cachePath}`)
+
+    const cmdObj = arguments[arguments.length - 1]
+    const cmdName = cmdObj.name()
+    const packageName = SETTINGS[cmdName]
+    const packageVersion = "latest"
 
     const pkg = new Package({
-        targetPath: env.CLI_TARGET_PATH,
-        cachePath: env.CLI_CACHE_PATH
+        targetPath,
+        cachePath,
+        packageName,
+        packageVersion
     })
-    console.log(pkg)
+
+    pkg.getIndexFilePath()
 }
 
 module.exports = exec

@@ -26,6 +26,7 @@
   "dependencies": {
     "@miffa/init": "*",
     "@miffa/log": "*",
+    "@miffa/helper": "*",
     "commander": "^9.4.1",
     "dotenv": "^16.0.3",
     "fs-extra": "^10.1.0",
