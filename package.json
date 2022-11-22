@@ -18,5 +18,9 @@
     "commands/*",
     "models/*",
     "utils/*"
-  ]
+  ],
+  "dependencies": {
+    "fs-extra": "^10.1.0",
+    "semver": "^7.3.8"
+  }
 }
