@@ -10,4 +10,4 @@ function npmInstall({ path, name, version, registry = "https://registry.npmmirro
 }
 
 
-module.exports = npmInstall
+module.exports = { npmInstall }

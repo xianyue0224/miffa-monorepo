@@ -1,7 +1,7 @@
 const { option, argument, resolvePackageInfo, npmInstall } = require("@miffa/helper")
 const { debug, error } = require("@miffa/log")
 const process = require("node:process")
-const path = require("path")
+const path = require("node:path")
 const fs = require("fs-extra")
 
 async function init(projectName, { force, localPath, npmPackage }) {
@@ -17,6 +17,9 @@ async function init(projectName, { force, localPath, npmPackage }) {
         await execRemoteModule(projectName, force, npmPackage, self)
     } else {
         // 默认init命令action
+        console.log("🚀 ~ init ~ force", force)
+        console.log("🚀 ~ init ~ projectName", projectName)
+        console.log(process.env)
     }
 }
 
@@ -36,7 +39,7 @@ async function execRemoteModule(projectName, force, npmPackage, self) {
 
     // 查看是否有缓存
     const config = require(process.env.MIFFA_CONFIG_FILE_PATH)
-    const cache = config.init_node_modules.find(i => i.cacheName === info.cacheName)
+    let cache = config.init_node_modules.find(i => i.cacheName === info.cacheName)
     if (!cache) {
         debug(`在缓存中找不到 ${info.cacheName} 模块，开始下载……`)
         // 下载、加入到缓存
@@ -65,15 +68,17 @@ async function execRemoteModule(projectName, force, npmPackage, self) {
 }
 
 module.exports = {
-    command: "init",
-    description: "初始化项目",
-    cmdArguments: [
-        argument("[projectName]", "项目名称", "miffa-project")
-    ],
-    options: [
-        option("-f, --force", "是否强制初始化项目", false),
-        option("-lp, --localPath <localPath>", "使用本地npm模块导出的方法作为init命令的处理函数"),
-        option("-np, --npmPackage <npmPackage>", "使用远程npm模块导出的方法作为init命令的处理函数")
-    ],
-    actionFn: init
+    initCmd: {
+        name: "init",
+        description: "初始化项目",
+        cmdArguments: [
+            argument("[projectName]", "项目名称", "miffa-project")
+        ],
+        options: [
+            option("-f, --force", "是否强制初始化项目", false),
+            option("-lp, --localPath <localPath>", "使用本地npm模块导出的方法作为init命令的处理函数"),
+            option("-np, --npmPackage <npmPackage>", "使用远程npm模块导出的方法作为init命令的处理函数")
+        ],
+        actionFn: init
+    }
 }

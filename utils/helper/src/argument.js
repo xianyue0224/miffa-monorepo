@@ -6,4 +6,4 @@ function argument(name, description, defaultValue) {
     }
 }
 
-module.exports = argument
+module.exports = { argument }

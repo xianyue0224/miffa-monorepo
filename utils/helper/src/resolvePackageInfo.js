@@ -49,4 +49,4 @@ async function resolvePackageInfo(str) {
     return info
 }
 
-module.exports = resolvePackageInfo
+module.exports = { resolvePackageInfo }

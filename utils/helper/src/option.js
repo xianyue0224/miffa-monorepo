@@ -6,4 +6,4 @@ function option(flags, description, defaultValue) {
     }
 }
 
-module.exports = option
+module.exports = { option }

@@ -1,9 +1,9 @@
-function registerCommand({ command, description, options = [], actionFn, cmdArguments = [] }, program) {
+function registerCommand({ name, commandOptions = {}, description = "", options = [], actionFn, cmdArguments = [] }, program) {
     if (!program) {
         program = this
     }
 
-    let cmdObj = program.command(command).description(description)
+    let cmdObj = program.command(name, commandOptions).description(description)
 
     if (cmdArguments.length !== 0) {
         cmdArguments.forEach(({ name, description, defaultValue }) => {
@@ -21,4 +21,4 @@ function registerCommand({ command, description, options = [], actionFn, cmdArgu
 
 }
 
-module.exports = registerCommand
+module.exports = { registerCommand }

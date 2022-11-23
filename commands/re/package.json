@@ -1,21 +1,19 @@
 {
-  "name": "@miffa/helper",
+  "name": "@miffa/re",
   "version": "1.0.0",
   "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "license": "ISC",
   "author": {
     "name": "xianyue",
     "email": "xianyue0224@gmail.com"
   },
-  "license": "ISC",
-  "main": "src/index.js",
-  "scripts": {
-    "test": "mocha"
-  },
-  "directories": {
-    "test": "./test"
-  },
   "files": [
-    "src"
+    "index.js"
   ],
   "publishConfig": {
     "access": "public",
@@ -26,14 +24,8 @@
     "url": "https://github.com/xianyue0224/miffa-monorepo"
   },
   "dependencies": {
+    "@miffa/helper": "*",
     "@miffa/log": "*",
-    "fs-extra": "^10.1.0",
-    "latest-version": "^5.1.0",
-    "npminstall": "^6.6.1"
-  },
-  "devDependencies": {
-    "chai": "^4.3.7",
-    "mocha": "^10.1.0",
-    "commander": "^9.4.1"
+    "fs-extra": "^10.1.0"
   }
 }
