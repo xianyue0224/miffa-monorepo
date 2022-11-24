@@ -1,4 +1,4 @@
-const { option, argument, resolvePackageInfo, npmInstall } = require("@miffa/helper")
+const { option, argument, resolvePackageInfo, npmInstall, getConfig } = require("@miffa/helper")
 const { debug, error } = require("@miffa/log")
 const process = require("node:process")
 const path = require("node:path")
@@ -38,7 +38,7 @@ async function execRemoteModule(projectName, force, npmPackage, self) {
     const info = await resolvePackageInfo(npmPackage)
 
     // 查看是否有缓存
-    const config = require(process.env.MIFFA_CONFIG_FILE_PATH)
+    const config = getConfig()
     let cache = config.init_node_modules.find(i => i.cacheName === info.cacheName)
     if (!cache) {
         debug(`在缓存中找不到 ${info.cacheName} 模块，开始下载……`)
@@ -47,7 +47,7 @@ async function execRemoteModule(projectName, force, npmPackage, self) {
             await npmInstall({
                 name: info.name,
                 version: info.version,
-                path: path.resolve(process.env.MIFFA_CACHE_DIR_PATH, info.cacheName)
+                path: path.join(process.env.MIFFA_CACHE_DIR_PATH, info.cacheName)
             })
         } catch (err) {
             error(err.message, true)
