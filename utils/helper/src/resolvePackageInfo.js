@@ -1,17 +1,9 @@
-const latestVersion = require('latest-version')
-const { debug } = require("@miffa/log")
-
-async function resolvePackageInfo(str) {
+function resolvePackageInfo(str) {
     const arr = str.split("@")
-    // @miffa/log => ["","miffa/log"]
-    // @miffa/log@1.0.0 => ["","miffa/log","1.0.0"]
-    // vue@1.0.0 => ["vue","1.0.0"]
-    // vue => ["vue"]
 
     const info = {
         name: "",
-        version: "",
-        get cacheName() { return `${this.name}@${this.version}` }
+        version: ""
     }
 
     switch (arr.length) {
@@ -37,14 +29,8 @@ async function resolvePackageInfo(str) {
             }
         }
         default:
-            throw new Error("-np 选项内容格式错误！")
+            throw new Error("-nm 选项内容格式错误！")
     }
-
-    if (info.version === "latest") {
-        info.version = await latestVersion(info.name)
-    }
-
-    debug(`npm包： ${info.cacheName}`)
 
     return info
 }

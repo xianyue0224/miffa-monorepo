@@ -12,7 +12,8 @@
   },
   "files": [
     "index.js",
-    "initCli.js"
+    "initCli.js",
+    "initConfig.js"
   ],
   "publishConfig": {
     "access": "public",

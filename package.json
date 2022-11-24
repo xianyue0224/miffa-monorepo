@@ -16,7 +16,6 @@
   "workspaces": [
     "core/*",
     "commands/*",
-    "models/*",
     "utils/*"
   ],
   "dependencies": {
