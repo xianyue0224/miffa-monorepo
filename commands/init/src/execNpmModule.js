@@ -5,7 +5,7 @@ const { debug, error } = require("@miffa/log")
 const packageJson = require('package-json');
 const process = require("node:process")
 
-async function execNpmModule(projectName, force, npmModule, cmdObj) {
+async function execNpmModule(projectInfo, npmModule) {
     // 解析npmModule字符串得到包名以及版本号
     const info = resolvePackageInfo(npmModule)
     // 通过第三方模块去获取package信息，如果获取失败说明传入的npmModule字符串有问题
@@ -48,7 +48,7 @@ async function execNpmModule(projectName, force, npmModule, cmdObj) {
     }
 
     try {
-        myModule.call(cmdObj, projectName, force, cmdObj)
+        myModule.call(this, projectInfo)
     } catch (err) {
         throw new Error(`你提供的模块在执行过程中出现了错误，这是错误信息：${err.message}`)
     }
