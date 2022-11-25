@@ -1,10 +1,13 @@
 const { option, argument } = require("@miffa/helper")
 const { execLocalModule } = require("./execLocalModule")
 const { execNpmModule } = require("./execNpmModule")
+const { execDefaultInit } = require("./execDefaultInit")
 const { debug, error } = require("@miffa/log")
 const prompts = require("prompts")
 const semver = require("semver")
 const { exit } = require("node:process")
+const fs = require("fs-extra")
+const path = require("path")
 
 function catchAsyncError(fn) {
 
@@ -17,19 +20,18 @@ function catchAsyncError(fn) {
     }
 }
 
-function catchSyncError(fn) {
-
-    function exitError(err) {
-        error(err.message, "", true)
-    }
-
-    return function () {
-        try {
-            fn.apply(this, arguments)
-        } catch (err) {
-            exitError(err)
+function getTemplateList() {
+    // 模板文件夹路径
+    const path_to_templates_dir = path.resolve(__dirname, "../../../template")
+    const list = fs.readdirSync(path_to_templates_dir)
+    return list.map(i => ({
+        title: i,
+        value: path.join(path_to_templates_dir, i),
+        get description() {
+            const pkg = require(path.join(this.value, "package.json"))
+            return pkg.description
         }
-    }
+    }))
 }
 
 const init = catchAsyncError(async function (projectName, a, cmdObj) {
@@ -72,10 +74,7 @@ const init = catchAsyncError(async function (projectName, a, cmdObj) {
             type: (prev, values) => values.branch === 1 ? "select" : null,
             name: "template",
             message: "选择一个模板：",
-            choices: [
-                { title: "Vue3全家桶", description: "Vite3_Vue3_JS_Router_Pinia_elementPlus_Scss", value: "vue3" },
-                { title: "等一个模板……", description: "", value: "nothing" }
-            ]
+            choices: getTemplateList()
         },
         {
             type: (prev, values) => values.branch === 2 ? "select" : null,
@@ -110,8 +109,6 @@ const init = catchAsyncError(async function (projectName, a, cmdObj) {
     const answer = await prompts(questions, {
         onCancel: exit
     })
-    console.log(answer)
-
 
     if (localModule) {
         execLocalModule(answer, localModule)
@@ -119,13 +116,9 @@ const init = catchAsyncError(async function (projectName, a, cmdObj) {
         debug("加载npm模块替换默认init处理函数")
         await execNpmModule(answer, npmModule)
     } else {
-        // 默认init命令action
-        debug("执行init命令默认处理函数")
+        await execDefaultInit(answer, { force })
     }
 })
-
-
-
 
 
 module.exports = {
