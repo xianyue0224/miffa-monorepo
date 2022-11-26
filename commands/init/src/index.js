@@ -86,7 +86,7 @@ const init = catchAsyncError(async function (projectName, a, cmdObj) {
 module.exports = {
     initCmd: {
         name: "init",
-        description: "初始化项目或生成组件模板",
+        description: "初始化项目",
         cmdArguments: [
             argument("[projectName]", "项目名称", "miffa-project")
         ],

@@ -26,6 +26,7 @@
   "scripts": {},
   "dependencies": {
     "@miffa/init": "*",
+    "@miffa/login": "*",
     "@miffa/re": "*",
     "@miffa/log": "*",
     "@miffa/helper": "*",

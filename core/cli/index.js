@@ -12,6 +12,7 @@ const semver = require("semver")
 async function main() {
     try {
         initConfig()
+        console.log(process.miffa)
         checkNodeVersion()
         await checkCliUpdate()
         initCli()

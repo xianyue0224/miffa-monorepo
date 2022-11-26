@@ -5,6 +5,9 @@ const path = require("path")
 const process = require("node:process")
 const ora = require("ora")
 const execa = require('execa')
+const axios = require("axios")
+
+const config = process.miffa
 
 // 修改package.json文件信息
 function modifyPkgJSON(newVal, path) {
@@ -14,14 +17,33 @@ function modifyPkgJSON(newVal, path) {
 }
 
 // 安装依赖、启动开发服务器、打开vscode
-async function start(targetDir) {
+async function start(targetDir, answer) {
 
     function myExeca(command) {
         return execa(command, { cwd: targetDir })
     }
 
     try {
+
         await myExeca("git init")
+
+        const res = await axios.post("https://api.github.com/user/repos",
+            {
+                name: "Hello-World",
+                description: "This is your first repo!",
+                homepage: `https://github.com/${config.github.userName}/${answer.projectName}`,
+                private: false
+            },
+            {
+                headers: {
+                    Accept: "application / vnd.github + json",
+                    Authorization: `Bearer ${config.github.token}`
+                }
+            })
+
+        console.log(11111111111111, res)
+
+        return
 
         const { stdout: registry } = await myExeca("npm config get registry")
 
@@ -33,6 +55,7 @@ async function start(targetDir) {
         await myExeca(`npm install`)
 
         spinner.succeed("项目依赖安装完成！")
+
 
         await myExeca(`code .`)
 
@@ -79,7 +102,7 @@ async function execDefaultInit(answer) {
 
     info("成功初始化项目！")
 
-    start(targetDir)
+    start(targetDir, answer)
 }
 
 module.exports = {

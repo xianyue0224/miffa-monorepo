@@ -14,9 +14,16 @@ const error = (errorMessage, tipMessage, exit = false) => {
     }
     // 如果exit为true则结束node进程
     if (exit) {
-        log(chalk.whiteBright(`脚手架将退出执行，你可以修正错误重新输入命令运行脚手架。`))
-        process.exit(1)
+        failExit(`脚手架将退出执行，你可以修正错误重新输入命令运行脚手架。`)
     }
+}
+
+const failExit = failMessage => {
+    log(prefix, chalk.redBright.bold.italic("Fail! "), chalk.redBright.bold("💔"), chalk.whiteBright(failMessage))
+    process.exit(1)
+}
+
+const successExit = successMessage => {
 }
 
 // 注意
@@ -59,5 +66,7 @@ module.exports = {
     info,
     warn,
     debug,
-    tip
+    tip,
+    successExit,
+    failExit
 }

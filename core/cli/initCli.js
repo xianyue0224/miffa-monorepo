@@ -1,7 +1,8 @@
-const { registerCommand, setEnv } = require("@miffa/helper")
-const { error, info, debug, notice, chalk } = require("@miffa/log")
+const { registerCommand } = require("@miffa/helper")
+const { error, debug, notice, chalk } = require("@miffa/log")
 const { initCmd } = require("@miffa/init")
 const { reCmd } = require("@miffa/re")
+const { githubCmd } = require("@miffa/github")
 const process = require("node:process")
 const { Command } = require("commander")
 const pkg = require("./package.json")
@@ -24,6 +25,8 @@ function initCli(program = new Command()) {
     registerCommand.call(program, initCmd)
 
     registerCommand.call(program, reCmd)
+
+    registerCommand.call(program, githubCmd)
 
     // 控制debug模式
     program.on("option:debug", function () {
