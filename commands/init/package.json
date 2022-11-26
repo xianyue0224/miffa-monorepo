@@ -13,7 +13,8 @@
     "email": "xianyue0224@gmail.com"
   },
   "files": [
-    "src"
+    "src",
+    "template"
   ],
   "publishConfig": {
     "access": "public",

@@ -15,30 +15,35 @@ function modifyPkgJSON(newVal, path) {
 
 // 安装依赖、启动开发服务器、打开vscode
 async function start(targetDir) {
+
+    function myExeca(command) {
+        return execa(command, { cwd: targetDir })
+    }
+
     try {
-        const { stdout: registry } = await execa("npm config get registry")
+        await myExeca("git init")
+
+        const { stdout: registry } = await myExeca("npm config get registry")
 
         const spinner = ora({
             text: `正在从 ${registry} 镜像下载依赖\n`,
             prefixText: "Miffa🚀 "
         }).start()
 
-        await execa(`npm install`, { cwd: targetDir })
+        await myExeca(`npm install`)
 
         spinner.succeed("项目依赖安装完成！")
 
-        await execa(`code .`, { cwd: targetDir })
+        await myExeca(`code .`)
 
-        execa(`npm run dev`, { cwd: targetDir }).stdout.pipe(process.stdout)
+        myExeca(`npm run dev`).stdout.pipe(process.stdout)
 
     } catch (err) {
         error(err.message, "", true)
     }
 }
 
-
-
-async function execDefaultInit(answer, { force }) {
+async function execDefaultInit(answer) {
     debug("执行init命令默认处理函数")
 
     // 目标文件夹，根据前面输入的projectName确定
@@ -52,7 +57,7 @@ async function execDefaultInit(answer, { force }) {
             type: "toggle",
             name: "clear",
             message: `${targetDir} 这个目录好像有东西，需要先清空再初始化项目，确认要清空吗？`,
-            initial: force,
+            initial: true,
             active: "yes",
             inactive: "no"
         })
