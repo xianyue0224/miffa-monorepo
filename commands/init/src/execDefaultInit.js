@@ -1,4 +1,5 @@
 const { debug, error, info } = require("@miffa/log")
+const { getConfig } = require("@miffa/helper")
 const prompts = require("prompts")
 const fs = require("fs-extra")
 const path = require("path")
@@ -7,7 +8,8 @@ const ora = require("ora")
 const execa = require('execa')
 const axios = require("axios")
 
-const config = process.miffa
+const config = getConfig()
+console.log("🚀 ~ config", config)
 
 // 修改package.json文件信息
 function modifyPkgJSON(newVal, path) {
@@ -26,6 +28,10 @@ async function start(targetDir, answer) {
     try {
 
         await myExeca("git init")
+
+        if (!config.github || !config.github.token) {
+            error("你还未登记过你的github个人访问令牌！无法创建github仓库，你可以选择继续执行余下的步骤或者退出脚手架同时删除已经生成的项目文件。", "", true)
+        }
 
         const res = await axios.post("https://api.github.com/user/repos",
             {

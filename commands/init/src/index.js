@@ -1,4 +1,4 @@
-const { option, argument } = require("@miffa/helper")
+const { option, argument, catchAsyncError } = require("@miffa/helper")
 const { execLocalModule } = require("./execLocalModule")
 const { execNpmModule } = require("./execNpmModule")
 const { execDefaultInit } = require("./execDefaultInit")
@@ -8,17 +8,6 @@ const semver = require("semver")
 const { exit } = require("node:process")
 const fs = require("fs-extra")
 const path = require("path")
-
-function catchAsyncError(fn) {
-
-    function exitError(err) {
-        error(err.message, "", true)
-    }
-
-    return function () {
-        fn.apply(this, arguments).catch(exitError)
-    }
-}
 
 function getTemplateList() {
     // 模板文件夹路径

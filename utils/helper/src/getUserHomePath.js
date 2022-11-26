@@ -1,8 +1,6 @@
 const { homedir } = require("node:os")
 const pathExists = require("fs-extra").pathExistsSync
-const { error, debug } = require("@miffa/log")
-const { exit } = require("node:process")
-const { setEnv } = require("./setEnv")
+const { error, failExit } = require("@miffa/log")
 
 
 function getUserHomePath() {
@@ -11,12 +9,8 @@ function getUserHomePath() {
         if (!path) {
             path = homedir()
             if (!path || !pathExists(path)) {
-                error("无法获取到用户的主目录。")
-                exit(1)
+                error("无法获取到用户的主目录。", "", true)
             }
-            // MIFFA_USER_HOME_PATH
-            setEnv("user_home_path", path)
-            debug(`用户主目录：${path}`)
         }
         return path
     }

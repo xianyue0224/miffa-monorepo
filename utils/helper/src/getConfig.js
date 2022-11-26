@@ -1,39 +1,34 @@
-const { exit } = require("node:process")
-const { join } = require("node:path")
 const { getUserHomePath } = require("./getUserHomePath")
+const path = require("node:path")
 const fs = require("fs-extra")
-const { debug, error } = require("@miffa/log")
 
-const defaultConfig = {
+const default_config = {
     lowest_node_version: "12.0.0",
-    default_cache_dir: ".miffa_cache",
-    init_node_modules: []
-}
-
-function getConfigFilePath() {
-    return join(getUserHomePath(), "miffa.config.json")
+    get user_home_path() { return getUserHomePath() },
+    get config_file_path() { return path.join(this.user_home_path, "miffa.config.json") },
+    get cache_path() { return path.join(this.user_home_path, ".miffa_cache") },
+    init_node_modules: [{ name: "占位用", path: "占位用" }]
 }
 
 function getConfig() {
-    const configFilePath = getConfigFilePath()
-
-    debug(`配置文件路径：${configFilePath}`)
-
-    if (!fs.pathExistsSync(configFilePath)) {
-        try {
-            fs.outputJSONSync(configFilePath, defaultConfig)
-        } catch (err) {
-            error("创建脚手架配置文件失败")
-            exit(1)
-        }
+    if (!fs.pathExistsSync(default_config.config_file_path)) {
+        fs.outputJSONSync(default_config.config_file_path, default_config)
     }
 
-    const config = require(configFilePath)
+    const config = require(default_config.config_file_path)
 
-    return config
+    const proxy = new Proxy(config, {
+        set(target, key, newVal) {
+            const temp = require(default_config.config_file_path)
+            temp[key] = newVal
+            fs.outputJSONSync(default_config.config_file_path, temp)
+            target[key] = newVal
+        }
+    })
+
+    return proxy
 }
 
 module.exports = {
-    getConfig,
-    getConfigFilePath
+    getConfig
 }
