@@ -1,0 +1,31 @@
+{
+    "name": "miffa",
+    "version": "1.0.0",
+    "description": "miffa 脚手架",
+    "bin": {
+        "miffa": "bin/cli.cjs"
+    },
+    "scripts": {
+        "build": "esbuild index.js --bundle --outfile=bin/cli.cjs --platform=node"
+    },
+    "files": [
+        "bin",
+        "template"
+    ],
+    "engines": {
+        "node": "^14.18.0 || >=16.0.0"
+    },
+    "keywords": [],
+    "author": "xianyue0224",
+    "license": "ISC",
+    "dependencies": {
+        "@miffa/importJSON": "*",
+        "@miffa/log": "*",
+        "@miffa/utils": "*",
+        "axios": "^1.2.0",
+        "commander": "^9.4.1",
+        "octokit": "^2.0.10",
+        "ora": "^6.1.2",
+        "prompts": "^2.4.2"
+    }
+}

@@ -1,25 +1,34 @@
 {
   "name": "miffa-monorepo",
   "version": "1.0.0",
-  "description": "项目脚手架",
-  "main": "index.js",
-  "scripts": {},
+  "description": "miffa 脚手架 monorepo 代码仓库",
+  "exports": "./index.js",
+  "scripts": {
+    "build": "turbo build",
+    "dev": "chokidar **/*.js -c \"npm run build\""
+  },
+  "engines": {
+    "node": ">=14.16"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xianyue0224/miffa-monorepo.git"
+  },
   "keywords": [],
-  "author": {
-    "name": "xianyue",
-    "email": "xianyue0224@gmail.com"
-  },
+  "author": "xianyue0224",
   "license": "ISC",
-  "devDependencies": {
-    "turbo": "^1.6.3"
+  "bugs": {
+    "url": "https://github.com/xianyue0224/miffa-monorepo/issues"
   },
+  "homepage": "https://github.com/xianyue0224/miffa-monorepo#readme",
   "workspaces": [
-    "core/*",
-    "commands/*",
-    "utils/*"
+    "packages/*",
+    "cli",
+    "docs"
   ],
-  "dependencies": {
-    "fs-extra": "^10.1.0",
-    "semver": "^7.3.8"
+  "devDependencies": {
+    "chokidar-cli": "^3.0.0",
+    "esbuild": "^0.15.15",
+    "turbo": "^1.6.3"
   }
 }

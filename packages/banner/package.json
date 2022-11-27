@@ -1,0 +1,26 @@
+{
+    "name": "@miffa/banner",
+    "version": "1.0.0",
+    "description": "搞一个好看的标题",
+    "exports": {
+        ".": {
+            "import": "./dist/index.js",
+            "require": "./dist/index.js"
+        }
+    },
+    "scripts": {
+        "build": "esbuild index.js --bundle --platform=node --outfile=dist/index.js"
+    },
+    "files": [
+        "dist"
+    ],
+    "engines": {
+        "node": "^14.18.0 || >=16.0.0"
+    },
+    "keywords": [],
+    "author": "xianyue0224",
+    "license": "ISC",
+    "dependencies": {
+        "gradient-string": "^2.0.2"
+    }
+}

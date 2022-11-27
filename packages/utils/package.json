@@ -1,0 +1,22 @@
+{
+    "name": "@miffa/utils",
+    "version": "1.0.0",
+    "description": "工具函数",
+    "main": "dist/index.js",
+    "scripts": {
+        "build": "esbuild index.js --bundle --outfile=dist/index.js --platform=node"
+    },
+    "files": [
+        "dist"
+    ],
+    "engines": {
+        "node": "^14.18.0 || >=16.0.0"
+    },
+    "keywords": [],
+    "author": "xianyue0224",
+    "license": "ISC",
+    "dependencies": {
+        "@miffa/log": "*",
+        "fs-extra": "^10.1.0"
+    }
+}
