@@ -12,3 +12,7 @@ export const successExit = message => {
     console.log(chalk.bold(prefix), chalk.greenBright.bold.italic("Success "), "✨ ", chalk.whiteBright(message))
     process.exit(1)
 }
+
+export const warn = message => {
+    console.log(chalk.bold(prefix), chalk.hex("#FFA500").bold("Warn "), "⚠️ ", chalk.whiteBright(message))
+}
