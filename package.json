@@ -4,8 +4,8 @@
   "description": "miffa 脚手架 monorepo 代码仓库",
   "exports": "./index.js",
   "scripts": {
-    "build": "turbo build",
-    "dev": "chokidar **/*.js -c \"npm run build\""
+    "build": "node ./scripts/build.js",
+    "dev": ""
   },
   "engines": {
     "node": ">=14.16"
@@ -23,12 +23,13 @@
   "homepage": "https://github.com/xianyue0224/miffa-monorepo#readme",
   "workspaces": [
     "packages/*",
-    "cli",
-    "docs"
+    "cli"
   ],
   "devDependencies": {
-    "chokidar-cli": "^3.0.0",
-    "esbuild": "^0.15.15",
-    "turbo": "^1.6.3"
+    "esbuild": "^0.15.15"
+  },
+  "dependencies": {
+    "execa": "^5.1.1",
+    "ora": "^5.4.1"
   }
 }

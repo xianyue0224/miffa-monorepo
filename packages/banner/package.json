@@ -9,7 +9,8 @@
         }
     },
     "scripts": {
-        "build": "esbuild index.js --bundle --platform=node --outfile=dist/index.js"
+        "build": "esbuild index.js --bundle --platform=node --outfile=dist/index.js --minify",
+        "dev": "esbuild index.js --bundle --platform=node --outfile=dist/index.js --watch"
     },
     "files": [
         "dist"

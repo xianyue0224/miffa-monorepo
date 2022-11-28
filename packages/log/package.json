@@ -4,7 +4,8 @@
     "description": "自定义打印日志",
     "main": "dist/index.js",
     "scripts": {
-        "build": "esbuild index.js --bundle --outfile=dist/index.js --platform=node"
+        "build": "esbuild index.js --bundle --outfile=dist/index.js --platform=node --minify",
+        "dev": "esbuild index.js --bundle --outfile=dist/index.js --platform=node --watch"
     },
     "files": [
         "dist"

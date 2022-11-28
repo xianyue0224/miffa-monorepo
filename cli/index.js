@@ -1,14 +1,13 @@
 #!/usr/bin/env node
-
-import importJSON from "@miffa/importJSON"
+import { importJson } from "@miffa/utils"
 import { Command } from "commander"
 import path from "node:path"
 import process from "node:process"
 import banner from "@miffa/banner"
 import loginAction from "./loginAction"
-import initAction from "./initAction"
+import { initAction } from "./initAction"
 
-const pkg = importJSON(path.join(__dirname, "../package.json"))
+const pkg = importJson(path.join(__dirname, "../package.json"))
 
 const miffa = new Command("miffa")
 
@@ -22,6 +21,7 @@ miffa
 
 miffa
     .command("init")
+    .argument("[projectName]", "项目名称（项目根目录文件夹名、package.json 文件name字段）")
     .description("初始化项目，安装依赖、git初始化、创建并关联远程仓库")
     .option("-f, --force", "如果目标文件夹有文件，将强制删除再初始化项目")
     .action(initAction)

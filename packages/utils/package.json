@@ -4,7 +4,8 @@
     "description": "工具函数",
     "main": "dist/index.js",
     "scripts": {
-        "build": "esbuild index.js --bundle --outfile=dist/index.js --platform=node"
+        "build": "esbuild index.js --bundle --outfile=dist/index.js --platform=node --minify",
+        "dev": "esbuild index.js --bundle --outfile=dist/index.js --platform=node --watch"
     },
     "files": [
         "dist"
@@ -17,6 +18,7 @@
     "license": "ISC",
     "dependencies": {
         "@miffa/log": "*",
-        "fs-extra": "^10.1.0"
+        "fs-extra": "^10.1.0",
+        "lodash": "^4.17.21"
     }
 }

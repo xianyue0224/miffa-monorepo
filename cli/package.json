@@ -6,7 +6,8 @@
         "miffa": "bin/cli.cjs"
     },
     "scripts": {
-        "build": "esbuild index.js --bundle --outfile=bin/cli.cjs --platform=node"
+        "build": "esbuild index.js --bundle --outfile=bin/cli.cjs --platform=node --minify",
+        "dev": "esbuild index.js --bundle --outfile=bin/cli.cjs --platform=node --watch"
     },
     "files": [
         "bin",
@@ -19,11 +20,11 @@
     "author": "xianyue0224",
     "license": "ISC",
     "dependencies": {
-        "@miffa/importJSON": "*",
         "@miffa/log": "*",
         "@miffa/utils": "*",
         "axios": "^1.2.0",
         "commander": "^9.4.1",
+        "execa": "^6.1.0",
         "octokit": "^2.0.10",
         "ora": "^6.1.2",
         "prompts": "^2.4.2"

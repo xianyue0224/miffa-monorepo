@@ -1,5 +1,5 @@
 import { readFileSync } from 'node:fs';
 
-export default function importJSON(pathToJsonFile) {
+export function importJson(pathToJsonFile) {
     return JSON.parse(readFileSync(pathToJsonFile))
 }
