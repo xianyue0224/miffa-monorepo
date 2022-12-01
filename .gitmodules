@@ -1,0 +1,3 @@
+[submodule "cli/miffa-templates"]
+	path = cli/miffa-templates
+	url = https://github.com/xianyue0224/miffa-templates.git

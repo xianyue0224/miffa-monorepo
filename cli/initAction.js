@@ -61,8 +61,8 @@ export const initAction = catchAsync(async (projectName, { force }) => {
             name: "template",
             message: "选择一个项目模板：",
             choices: () => {
-                const templateDirPath = path.resolve(__dirname, "../template")
-                return fs.readdirSync(templateDirPath).map(t => {
+                const templateDirPath = path.resolve(__dirname, "../miffa-templates")
+                return fs.readdirSync(templateDirPath).filter(i => !["README.md", ".git"].includes(i)).map(t => {
                     const templatePath = path.join(templateDirPath, t)
                     const { name: title, description } = JSON.parse(fs.readFileSync(path.join(templatePath, "package.json")))
                     return {
