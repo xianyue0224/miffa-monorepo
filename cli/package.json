@@ -1,7 +1,10 @@
 {
     "name": "miffa",
-    "version": "1.0.0",
+    "version": "1.0.2",
     "description": "miffa 脚手架",
+    "publishConfig": {
+        "access": "public"
+    },
     "bin": {
         "miffa": "bin/cli.cjs"
     },
@@ -11,7 +14,7 @@
     },
     "files": [
         "bin",
-        "template"
+        "miffa-templates"
     ],
     "engines": {
         "node": "^14.18.0 || >=16.0.0"

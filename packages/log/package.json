@@ -1,7 +1,10 @@
 {
     "name": "@miffa/log",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "自定义打印日志",
+    "publishConfig": {
+        "access": "public"
+    },
     "main": "dist/index.js",
     "scripts": {
         "build": "esbuild index.js --bundle --outfile=dist/index.js --platform=node --minify",

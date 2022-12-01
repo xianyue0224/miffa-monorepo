@@ -2,6 +2,9 @@
     "name": "@miffa/banner",
     "version": "1.0.0",
     "description": "搞一个好看的标题",
+    "publishConfig": {
+        "access": "public"
+    },
     "exports": {
         ".": {
             "import": "./dist/index.js",
