@@ -102,6 +102,7 @@ export const initAction = catchAsync(async (projectName, { force }) => {
         const firstPushSpinner = ora("第一次推送……\n").start()
         await myExeca(`git add .`)
         await myExeca(`git commit -m "init"`)
+        console.log("推送代码可能会因为网络原因卡着一直无法完成，可以直接退出脚手架，此时，已经创建好远程仓库并关联了，可以手动推送代码。")
         await myExeca(`git push -u origin master`)
         firstPushSpinner.succeed("推送成功！")
     }
